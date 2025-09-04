@@ -22,9 +22,10 @@ void keyboard_post_init_user(void) {
 
 bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(22,255,0,0);
-        rgb_matrix_set_color(23,255,0,0);
-        rgb_matrix_set_color(24,255,0,0);
+        rgb_matrix_set_color(2,255,0,0);
+        rgb_matrix_set_color(3,255,0,0);
+        rgb_matrix_set_color(4,255,0,0);
+        rgb_matrix_set_color(9,255,0,0);
     }
     return true;
 }

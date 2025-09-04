@@ -40,9 +40,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(22,255,0,0);
-        rgb_matrix_set_color(23,255,0,0);
-        rgb_matrix_set_color(24,255,0,0);
+        rgb_matrix_set_color(25,255,0,0);
+        rgb_matrix_set_color(52,255,0,0);
+        rgb_matrix_set_color(53,255,0,0);
+        rgb_matrix_set_color(54,255,0,0);
     }
     return true;
 }
@@ -63,12 +64,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_RBRC,    KC_BSLS,    KC_DELETE,
     KC_LCTL,    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_QUOT,                KC_ENT,     KC_PAGE_UP,
     KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,    KC_RSFT,                KC_UP,      KC_PAGE_DOWN,
-    KC_CAPS,    KC_LGUI,    KC_LALT,                            KC_SPC,                             MO(_FN0),   MO(_FN1),                           KC_LEFT,    KC_DOWN,    KC_RIGHT
+    MO(_FN0),   KC_LGUI,    KC_LALT,                            KC_SPC,                             MO(_FN0),   MO(_FN1),                           KC_LEFT,    KC_DOWN,    KC_RIGHT
     ),
     [_FN0] = LAYOUT_65_ansi_blocker(
     KC_GRV,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_PSCR,    _______,
-    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    QK_LOCK,    _______,    _______,                _______,    _______,
+    KC_CAPS,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+    _______,    _______,    _______,    _______,    _______,    _______,    KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,   _______,    _______,                _______,    _______,
     _______,    MS_BTN1,    MS_BTN2,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,                _______,    QK_LLCK,
     _______,    _______,    _______,                            _______,                            _______,    _______,                            _______,    _______,    _______
     ),
