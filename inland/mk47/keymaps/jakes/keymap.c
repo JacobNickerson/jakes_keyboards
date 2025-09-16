@@ -21,9 +21,8 @@
 #define DEFAULT_S 255
 #define DEFAULT_V 255
 
-#define ROW_COUNT 12
+#define ROW_LEN 12
 
-// 
 
 enum layers {
     BASE=0, // Alpha layer
@@ -128,7 +127,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Hook to change RGB per-key AFTER the current animation frame has been rendered
 bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(ROW_COUNT+0,255,0,0);
+        rgb_matrix_set_color(ROW_LEN+0,255,0,0);
     }
     return true;
 }
@@ -162,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT,
-        MO(NAV), KC_LGUI, KC_LALT, KC_LCTL, MO(NUM),      KC_SPC,      MO(FN),  MO(KEB), XXXXXXX, KC_DEL,  KC_RCTL
+        KC_LCTL, KC_LGUI, KC_LALT, MO(NAV), MO(NUM),      KC_SPC,      MO(FN),  MO(KEB), XXXXXXX, KC_DEL,  KC_RCTL
     ),
 
     [NUM] = LAYOUT_planck_mit(
@@ -212,7 +211,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void set_layer_rgb(uint32_t layer) {
     uint8_t diff = 0;
-    rgb_matrix_mode(RGB_MATRIX_RIVERFLOW);
     switch (layer) {
         case BASE: {
             diff = 0;
@@ -235,7 +233,7 @@ void set_layer_rgb(uint32_t layer) {
             break;
         }
         case SEC: {
-            rgb_matrix_mode(RGB_MATRIX_MULTISPLASH);
+            diff = 153;
             break;
         }
         case BABY: {
@@ -247,6 +245,7 @@ void set_layer_rgb(uint32_t layer) {
         }
     }
     rgb_matrix_sethsv(BASE_COL.h+diff,BASE_COL.s,BASE_COL.v);
+    if (layer != BABY) { rgb_matrix_mode(RGB_MATRIX_RIVERFLOW); }
 }
 
 void update_base_colo(int i) {
@@ -256,7 +255,7 @@ void update_base_colo(int i) {
             BASE_COL.h = curr.h;
             break;
         }
-        case 1: {
+        case 1:{
             BASE_COL.s = curr.s;
             break;
         }

@@ -40,7 +40,7 @@ static hsv_t BASE_COL = {
 // HELPER FUNCTIONS
 // Definitions are below the QMK block
 inline void set_layer_rgb(uint32_t layer);
-inline void update_base_col(int i);
+inline void update_base_colo(int i);
 
 // QMK OVERRIDES
 
@@ -60,33 +60,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case RM_HUEU: {
-                rgb_matrix_increase_hue();    // normal QMK handling
-                update_base_col(0);
-                return false;  // we handled it, don’t run default processing
+                rgb_matrix_increase_hue();
+                update_base_colo(0);
+                return false;
             }
             case RM_HUED: {
                 rgb_matrix_decrease_hue();
-                update_base_col(0);
+                update_base_colo(0);
                 return false;
             }
             case RM_SATU: {
-                rgb_matrix_increase_sat();    // normal QMK handling
-                update_base_col(1);
-                return false;  // we handled it, don’t run default processing
+                rgb_matrix_increase_sat();
+                update_base_colo(1);
+                return false;
             }
             case RM_SATD: {
                 rgb_matrix_decrease_sat();
-                update_base_col(1);
+                update_base_colo(1);
                 return false;
             }
             case RM_VALU: {
-                rgb_matrix_increase_val();    // normal QMK handling
-                update_base_col(2);
-                return false;  // we handled it, don’t run default processing
+                rgb_matrix_increase_val();
+                update_base_colo(2);
+                return false;
             }
             case RM_VALD: {
                 rgb_matrix_decrease_val();
-                update_base_col(2);
+                update_base_colo(2);
                 return false;
             }
             case RM_RES: {
@@ -200,7 +200,7 @@ void set_layer_rgb(uint32_t layer) {
     rgb_matrix_sethsv(BASE_COL.h+diff,BASE_COL.s,BASE_COL.v);
 }
 
-void update_base_col(int i) {
+void update_base_colo(int i) {
     hsv_t curr = rgb_matrix_get_hsv();
     switch(i) {
         case 0: {
