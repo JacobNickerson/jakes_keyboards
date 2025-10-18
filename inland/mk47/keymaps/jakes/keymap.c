@@ -36,10 +36,10 @@ enum layers {
 
 enum custom_keycodes {
     RM_RES = SAFE_RANGE, // Reset RGB to default
-    WN_LEFT,             // Combos to navigate between virtual desktops 
-    WN_RGHT,
-    WN_UP,
-    WN_DOWN
+    // Keys for navigating virtual desktops
+    WN_LEFT, WN_RGHT, WN_UP, WN_DOWN,
+    WN_1, WN_2, WN_3, WN_4, WN_5,
+    WNMV_1, WNMV_2, WNMV_3, WNMV_4, WNMV_5
 };
 
 static hsv_t BASE_COL = {
@@ -119,6 +119,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(C(G(KC_DOWN)));
                 return false;
             }
+            case WN_1: {
+                tap_code16(G(KC_1));
+                return false;
+            }
+            case WN_2: {
+                tap_code16(G(KC_2));
+                return false;
+            }
+            case WN_3: {
+                tap_code16(G(KC_3));
+                return false;
+            }
+            case WN_4: {
+                tap_code16(G(KC_4));
+                return false;
+            }
+            case WN_5: {
+                tap_code16(G(KC_5));
+                return false;
+            }
+            case WNMV_1: {
+                tap_code16(G(S(KC_1)));
+                return false;
+            }
+            case WNMV_2: {
+                tap_code16(G(S(KC_2)));
+                return false;
+            }
+            case WNMV_3: {
+                tap_code16(G(S(KC_3)));
+                return false;
+            }
+            case WNMV_4: {
+                tap_code16(G(S(KC_4)));
+                return false;
+            }
+            case WNMV_5: {
+                tap_code16(G(S(KC_5)));
+                return false;
+            }
         }
     }
     return true;  // let QMK handle other keys
@@ -172,8 +212,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [NAV] = LAYOUT_planck_mit(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, WN_LEFT, WN_DOWN, WN_UP,   WN_RGHT, XXXXXXX, _______,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______,
+        XXXXXXX, WNMV_1,  WNMV_2,  WNMV_3,  WNMV_4,  WNMV_5,  WN_LEFT, WN_DOWN, WN_UP,   WN_RGHT, XXXXXXX, _______,
+        XXXXXXX, WN_1,    WN_2,    WN_3,    WN_4,    WN_5,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX,
         _______, _______, _______, _______, _______,     _______,      _______, _______, _______, XXXXXXX, _______
     ),
