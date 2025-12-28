@@ -1,4 +1,4 @@
-/* Copyright (C) 2023 jonylee@hfd
+/* Copyright 2022 Dennis Kruyt (dennis@kruyt.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -183,7 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Hook to change RGB per-key AFTER the current animation frame has been rendered
 bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(ROW_LEN+0,255,0,0);
+        rgb_matrix_set_color(ROW_LEN*2-1,255,0,0);
     }
     return true;
 }
@@ -204,67 +204,67 @@ combo_t key_combos[] = {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    // [_TEMPLATE] = LAYOUT_planck_mit(
+    // [_TEMPLATE] = LAYOUT_ortho_4x12_2x2u(
     //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     //     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    //     _______, _______, _______, _______, _______,     _______,      _______, _______, _______, _______, _______
+    //     _______, _______, _______, _______,      _______,         _______,      _______, _______, _______, _______
     // ),
     //
-    // [XTEMPLATE] = LAYOUT_planck_mit(
+    // [XTEMPLATE] = LAYOUT_ortho_4x12_2x2u(
     //     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     //     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     //     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    //     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+    //     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,         XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     // ),
 
-    [BASE] = LAYOUT_planck_mit(
+    [BASE] = LAYOUT_ortho_4x12_2x2u(
         KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT,
-        KC_LCTL, KC_LGUI, KC_LALT, MO(NAV), MO(NUM),      KC_SPC,      MO(FN),  MO(KEB), TO(NAV), KC_DEL,  KC_RCTL
+        KC_LCTL, KC_LGUI, KC_LALT, MO(NUM),      KC_SPC,          MO(NAV),      MO(FN),  MO(KEB), KC_DEL,  KC_RCTL
     ),
 
-    [NUM] = LAYOUT_planck_mit(
+    [NUM] = LAYOUT_ortho_4x12_2x2u(
         KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, XXXXXXX, 
-        _______, _______, _______, _______, _______,     _______,      _______,  _______,XXXXXXX, XXXXXXX, _______
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, _______, 
+        _______, _______, _______, _______,      _______,         _______,      _______, _______, _______, _______
     ),
 
-    [NAV] = LAYOUT_planck_mit(
+    [NAV] = LAYOUT_ortho_4x12_2x2u(
         WNMV_S,  WNMV_1,  WNMV_2,  WNMV_3,  WNMV_4,  WNMV_5,  WN_LEFT, WN_DOWN, WN_UP,   WN_RGHT, XXXXXXX, _______,
         WN_S,    WN_1,    WN_2,    WN_3,    WN_4,    WN_5,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX,
-        _______, _______, _______, _______, _______,     _______,      _______, _______, TO(BASE),XXXXXXX, _______
+        _______, _______, _______, _______,      _______,         _______,      _______, _______, XXXXXXX, _______
     ),
 
-    [FN] = LAYOUT_planck_mit(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11, KC_F12,
+    [FN] = LAYOUT_ortho_4x12_2x2u(
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
         KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, KC_PSCR,
         _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        _______, _______, _______, _______, _______,     _______,      _______,  _______,XXXXXXX, XXXXXXX, _______
+        _______, _______, _______, _______,      _______,         _______,      _______, _______, XXXXXXX, _______
     ),
 
-    [KEB] = LAYOUT_planck_mit(
+    [KEB] = LAYOUT_ortho_4x12_2x2u(
         RM_RES,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
         RM_NEXT, RM_HUEU, RM_SATU, RM_VALU, RM_SPDU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         RM_PREV, RM_HUED, RM_SATD, RM_VALD, RM_SPDD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,     XXXXXXX,      _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
+        XXXXXXX, XXXXXXX, XXXXXXX, _______,      _______,         XXXXXXX,      _______, _______, XXXXXXX, XXXXXXX
     ),
 
-    [SEC] = LAYOUT_planck_mit(
+    [SEC] = LAYOUT_ortho_4x12_2x2u(
         QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TO(BABY),
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,         XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
-    [BABY] = LAYOUT_planck_mit(
+    [BABY] = LAYOUT_ortho_4x12_2x2u(
         BBMD_1,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BBMD_2,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,         XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
 
