@@ -15,9 +15,11 @@
 //  */
 
 enum custom_keycodes {
-    KC_USB = QK_KB_0,
-  KC_BLE1,
-  KC_BLE2,
-  KC_BLE3,
-  KC_24G
+    RM_RES = SAFE_RANGE, // Reset RGB to default
+    // Keys for navigating virtual desktops
+    WN_LEFT, WN_RGHT, WN_UP, WN_DOWN,
+    WN_1, WN_2, WN_3, WN_4, WN_5, WN_S,
+    WNMV_1, WNMV_2, WNMV_3, WNMV_4, WNMV_5, WNMV_S,
+    // Keys from Yunzii repo
+    KC_USB, KC_BLE1, KC_BLE2, KC_BLE3, KC_24G
 };
