@@ -189,15 +189,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL,    KC_LGUI,    MO(_FN0),                           KC_SPC,                             MO(_FN0),   MO(_FN1),                           KC_LEFT,    KC_DOWN,    KC_RIGHT
     ),
     [_FN0] = LAYOUT_65_ansi_blocker(
-    KC_GRV,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC_PSCR,    _______,
-    WNMV_S,     WNMV_1,     WNMV_2,     WNMV_3,     WNMV_4,     WNMV_5,     WN_LEFT,    WN_DOWN,    WN_UP,      WN_RGHT,    _______,    _______,    _______,    _______,    _______,
+    KC_GRV,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,     _______,    _______,
+    WNMV_S,     WNMV_1,     WNMV_2,     WNMV_3,     WNMV_4,     WNMV_5,     WN_LEFT,    WN_DOWN,    WN_UP,      WN_RGHT,    _______,    _______,    _______,    _______,    KC_PSCR,
     WN_S,       WN_1,       WN_2,       WN_3,       WN_4,       WN_5,       KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    _______,    _______,                _______,    _______,
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,                _______,    QK_LLCK,
     _______,    _______,    _______,                            _______,                            _______,    _______,                            _______,    _______,    _______
     ),
     [_FN1] = LAYOUT_65_ansi_blocker(
-    // TODO: Find replacement for RGB_TOG
-    RM_RES,     KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,     KC_F18,     KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,     XXXXXXX,    _______,
+    RM_RES,     KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,     KC_F18,     KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,     RM_TOGG,    _______,
     _______,    RM_NEXT,    RM_HUEU,    RM_SATU,    RM_VALU,    RM_SPDU,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
     KC_CAPS,    RM_PREV,    RM_HUED,    RM_SATD,    RM_VALD,    RM_SPDD,    _______,    _______,    _______,    _______,    _______,    _______,                _______,    _______,
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,                RM_VALU,    _______,
