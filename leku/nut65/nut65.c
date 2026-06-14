@@ -738,48 +738,48 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
 }
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-    if (*md_getp_state() == MD_STATE_CONNECTED) {
-        hs_rgb_blink_set_timer(timer_read32());
-    }
+//     if (*md_getp_state() == MD_STATE_CONNECTED) {
+//         hs_rgb_blink_set_timer(timer_read32());
+//     }
 
-    switch (keycode) {
-        case MO(_FL):
-        case MO(_MFL): {
-            if (!record->event.pressed && rgbrec_is_started()) {
-                if (no_record_fg == true) {
-                    no_record_fg = false;
-                    rgbrec_register_record(keycode, record);
-                }
-                no_record_fg = true;
-            }
-            break;
-        }
-        case RP_END:
-        case RP_P0:
-        case RP_P1:
-        case RP_P2:
-        case RGB_MOD:
-            break;
-        default: {
-            if (rgbrec_is_started()) {
-                if (!IS_QK_MOMENTARY(keycode) && record->event.pressed) {
-                    rgbrec_register_record(keycode, record);
+//     switch (keycode) {
+//         case MO(_FL):
+//         case MO(_MFL): {
+//             if (!record->event.pressed && rgbrec_is_started()) {
+//                 if (no_record_fg == true) {
+//                     no_record_fg = false;
+//                     rgbrec_register_record(keycode, record);
+//                 }
+//                 no_record_fg = true;
+//             }
+//             break;
+//         }
+//         case RP_END:
+//         case RP_P0:
+//         case RP_P1:
+//         case RP_P2:
+//         case RGB_MOD:
+//             break;
+//         default: {
+//             if (rgbrec_is_started()) {
+//                 if (!IS_QK_MOMENTARY(keycode) && record->event.pressed) {
+//                     rgbrec_register_record(keycode, record);
 
-                    return false;
-                }
-            }
-        } break;
-    }
+//                     return false;
+//                 }
+//             }
+//         } break;
+//     }
 
-    if (rgbrec_is_started() && (!(keycode == RP_P0 || keycode == RP_P1 || keycode == RP_P2 || keycode == RP_END || keycode == RGB_MOD || keycode == MO(_FL) || keycode == MO(_MFL)))) {
+//     if (rgbrec_is_started() && (!(keycode == RP_P0 || keycode == RP_P1 || keycode == RP_P2 || keycode == RP_END || keycode == RGB_MOD || keycode == MO(_FL) || keycode == MO(_MFL)))) {
 
-        return false;
-    }
+//         return false;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
 static void handle_key_with_layer(uint16_t normal_code, uint16_t mac_code, uint16_t win_code, keyrecord_t *record) {
     if (confinfo.hs_cut_f_layer) {
@@ -1696,7 +1696,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (start_paoma_flag) {
         static uint8_t led_start = 0;
         if (led_start < (RGB_MATRIX_LED_COUNT - RGBLED_NUM - WINDOW_SIZE)) {
-            rgb_matrix_set_color_all(0x00, 0x00, 0x00); // ÇåÆÁ
+            rgb_matrix_set_color_all(0x00, 0x00, 0x00); // ï¿½ï¿½ï¿½ï¿½
             static uint32_t time_delay = 0;
             if (timer_elapsed32(time_delay) > DELAY_TIME) {
                 time_delay = timer_read32();

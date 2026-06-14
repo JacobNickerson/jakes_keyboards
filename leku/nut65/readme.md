@@ -21,3 +21,7 @@ To reset the board into bootloader mode, do one of the following:
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 - 
+
+JAKES NOTES
+Compiling this depends on the fork it came from, it cannot just be included into the base qmk_firmware repo.
+This is because it depends on macros defined in quantum/eeconfig.h that are not found in the qmk_firmware repo.

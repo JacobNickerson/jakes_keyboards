@@ -1,0 +1,2 @@
+RGB_MATRIX_ENABLE = yes
+KEY_LOCK_ENABLE = yes
