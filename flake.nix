@@ -21,6 +21,7 @@
         git
         python3
         python3Packages.pip
+        dos2unix
       ];
 
       shellHook = ''
