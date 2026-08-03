@@ -21,6 +21,7 @@
         git
         python3
         python3Packages.pip
+        python3Packages.appdirs  # NOTE: Needed for Nut65
         dos2unix
       ];
 
