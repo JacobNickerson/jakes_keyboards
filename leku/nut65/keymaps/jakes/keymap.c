@@ -25,8 +25,10 @@ enum custom_keycodes {
     RM_RES = SAFE_RANGE, // Reset RGB to default
     // Keys for navigating virtual desktops
     WN_LEFT, WN_RGHT, WN_UP, WN_DOWN,
-    WN_1, WN_2, WN_3, WN_4, WN_5, WN_S,
-    WNMV_1, WNMV_2, WNMV_3, WNMV_4, WNMV_5, WNMV_S,
+    WN_1, WN_2, WN_3, WN_4, WN_5,
+    WN_6, WN_7, WN_8, WN_9, WN_0, WN_S,
+    WNMV_1, WNMV_2, WNMV_3, WNMV_4, WNMV_5,
+    WNMV_6, WNMV_7, WNMV_8, WNMV_9, WNMV_0, WNMV_S
 };
 
 enum layers {
@@ -53,15 +55,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,   KC_A,       KC_S,       KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,    KC_QUOT,            KC_ENT,    KC_PGDN,
         KC_LSFT,  KC_Z,       KC_X,       KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,    KC_RSFT,            KC_UP,     KC_DEL,
         KC_LCTL,  KC_LGUI,    MO(_FN0),                       KC_SPC,                       MO(_FN0), MO(_FN1),                       KC_LEFT,  KC_DOWN,   KC_RIGHT,
+
         KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,     KC_NO
     ),  
 
     [_FN0] = LAYOUT(
         KC_GRV,   KC_F1,      KC_F2,      KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,     KC_F11,   KC_F12,   _______,   _______,
-        WNMV_S,   WNMV_1,     WNMV_2,     WNMV_3,   WNMV_4,   WNMV_5,   WN_LEFT,  WN_DOWN,  WN_UP,    WN_RGHT,  _______,    _______,  _______,  _______,   KC_PSCR,
-        WN_S,     WN_1,       WN_2,       WN_3,     WN_4,     WN_5,     KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  _______,    _______,            _______,   _______,
-        _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,            _______,   _______,
-        _______,  _______,    _______,                        _______,                      _______,  _______,                        _______,  _______,   _______,
+        WNMV_S,   WNMV_1,     WNMV_2,     WNMV_3,   WNMV_4,   WNMV_5,   WNMV_6,   WNMV_7,   WNMV_8,   WNMV_9,   WNMV_0,     _______,  _______,  _______,   KC_PSCR,
+        WN_S,     WN_1,       WN_2,       WN_3,     WN_4,     WN_5,     WN_6,     WN_7,     WN_8,     WN_9,     WN_0,       _______,            _______,   _______,
+        _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,            KC_VOLU,   _______,
+        _______,  _______,    _______,                        _______,                      _______,  _______,                        _______,  KC_VOLD,   _______,
+
         KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,     KC_NO
     ),
 
@@ -71,6 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_CAPS,  RM_PREV,    RM_HUED,    RM_SATD,  RM_VALD,  RM_SPDD,  _______,  _______,  _______,  _______,  _______,    _______,            _______,   _______,
         _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,            RM_VALU,   _______,
         _______,  _______,    _______,                        _______,                      _______,  _______,                        RM_SATD,  RM_VALD,   RM_SATU,
+
         KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,     KC_NO
     ),  
 
@@ -80,6 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,            XXXXXXX,   XXXXXXX,
         XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,            XXXXXXX,   XXXXXXX,
         XXXXXXX,  XXXXXXX,    XXXXXXX,                        XXXXXXX,                      XXXXXXX,  XXXXXXX,                        XXXXXXX,  XXXXXXX,   XXXXXXX,
+
         KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,     KC_NO
     ),
 
@@ -89,39 +95,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,            XXXXXXX,   XXXXXXX,
         XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,            XXXXXXX,   XXXXXXX,
         XXXXXXX,  XXXXXXX,    XXXXXXX,                        XXXXXXX,                      XXXXXXX,  XXXXXXX,                        XXXXXXX,  XXXXXXX,   XXXXXXX,
+
         KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,     KC_NO
     )
 };
 
 const uint16_t PROGMEM rgbrec_default_effects[RGBREC_CHANNEL_NUM][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        HS_GREEN, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
-        ________, ________,   HS_GREEN,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
-        ________, HS_GREEN,   HS_GREEN,   HS_GREEN, ________, ________, ________, ________, ________, ________, ________,   ________,           ________,  ________,
-        ________,             ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, HS_GREEN,  ________,
-        ________, ________,   ________,                       ________,                                         ________,   ________, HS_GREEN, HS_GREEN,  HS_GREEN,
+        ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
+        ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
+        ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________,           ________,  ________,
+        ________,             ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________,
+        ________, ________,   ________,                       ________,                                         ________,   ________, ________, ________,  ________,
         ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________
         ),
 
     [1] = LAYOUT(
-        HS_GREEN, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
-        ________, ________,   HS_GREEN,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
-        ________, HS_GREEN,   HS_GREEN,   HS_GREEN, ________, ________, ________, ________, ________, ________, ________,   ________,           ________,  ________,
-        ________,             ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, HS_GREEN,  ________,
-        ________, ________,   ________,                       ________,                                         ________,   ________, HS_GREEN, HS_GREEN,  HS_GREEN,
+        ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
+        ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
+        ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________,           ________,  ________,
+        ________,             ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________,
+        ________, ________,   ________,                       ________,                                         ________,   ________, ________, ________,  ________,
         ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________
         ),
 
     [2] = LAYOUT(
-        HS_GREEN, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
-        ________, ________,   HS_GREEN,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
-        ________, HS_GREEN,   HS_GREEN,   HS_GREEN, ________, ________, ________, ________, ________, ________, ________,   ________,           ________,  ________,
-        ________,             ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, HS_GREEN,  ________,
-        ________, ________,   ________,                       ________,                                         ________,   ________, HS_GREEN, HS_GREEN,  HS_GREEN,
+        ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
+        ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________, 
+        ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________,           ________,  ________,
+        ________,             ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________,
+        ________, ________,   ________,                       ________,                                         ________,   ________, ________, ________,  ________,
         ________, ________,   ________,   ________, ________, ________, ________, ________, ________, ________, ________,   ________, ________, ________,  ________
         ),
 };
 
+#define WN(N)                  \
+    case WN_##N: {             \
+        tap_code16(G(KC_##N)); \
+        return false;          \
+    }
+#define WNMV(N)                   \
+    case WNMV_##N: {              \
+        tap_code16(G(S(KC_##N))); \
+        return false;             \
+    }
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
@@ -164,70 +181,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 
                 return false;
             }
-            case WN_LEFT: {
-                tap_code16(C(G(KC_LEFT)));
-                return false;
-            }
-            case WN_RGHT: {
-                tap_code16(C(G(KC_RGHT)));
-                return false;
-            }
-            case WN_UP: {
-                tap_code16(C(G(KC_UP)));
-                return false;
-            }
-            case WN_DOWN: {
-                tap_code16(C(G(KC_DOWN)));
-                return false;
-            }
-            case WN_1: {
-                tap_code16(G(KC_1));
-                return false;
-            }
-            case WN_2: {
-                tap_code16(G(KC_2));
-                return false;
-            }
-            case WN_3: {
-                tap_code16(G(KC_3));
-                return false;
-            }
-            case WN_4: {
-                tap_code16(G(KC_4));
-                return false;
-            }
-            case WN_5: {
-                tap_code16(G(KC_5));
-                return false;
-            }
-            case WN_S: {
-                tap_code16(G(KC_S));
-                return false;
-            }
-            case WNMV_1: {
-                tap_code16(G(S(KC_1)));
-                return false;
-            }
-            case WNMV_2: {
-                tap_code16(G(S(KC_2)));
-                return false;
-            }
-            case WNMV_3: {
-                tap_code16(G(S(KC_3)));
-                return false;
-            }
-            case WNMV_4: {
-                tap_code16(G(S(KC_4)));
-                return false;
-            }
-            case WNMV_5: {
-                tap_code16(G(S(KC_5)));
-                return false;
-            }
-            case WNMV_S: {
-                tap_code16(G(S(KC_S)));
-                return false;
-            }
+            WN(1)
+            WN(2)
+            WN(3)
+            WN(4)
+            WN(5)
+            WN(6)
+            WN(7)
+            WN(8)
+            WN(9)
+            WN(0)
+            WN(S)
+            WNMV(1)
+            WNMV(2)
+            WNMV(3)
+            WNMV(4)
+            WNMV(5)
+            WNMV(6)
+            WNMV(7)
+            WNMV(8)
+            WNMV(9)
+            WNMV(0)
+            WNMV(S)
         }
     }
     return true;  // let QMK handle other keys
