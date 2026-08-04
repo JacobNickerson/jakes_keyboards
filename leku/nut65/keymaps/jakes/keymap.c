@@ -32,7 +32,7 @@ enum custom_keycodes {
 };
 
 enum layers {
-    _BASE=0, _FN0, _FN1, _FN2, _BABY
+    _BASE=0, _NAV0, _NAV1, _FN0, _FN1, _BABY
 };
 
 void keyboard_post_init_user(void) {
@@ -42,10 +42,74 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _FN0, _FN1, _FN2);
+    state = update_tri_layer_state(state, _NAV0, _FN0, _FN1);
     set_layer_rgb(get_highest_layer(state));
     return state;
 }
+
+// Tap Dance Holds
+typedef enum {
+    TD_NONE,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_HOLD,
+} td_state_t;
+
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
+
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return TD_NONE; // not used for single-hold, just a fallback
+        else return TD_SINGLE_HOLD;
+    } else if (state->count == 2) {
+        if (state->pressed) return TD_DOUBLE_HOLD;
+    }
+    return TD_NONE;
+}
+
+static td_tap_t layer_tap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+void td_set_nav_layer(tap_dance_state_t *state, void *user_data) {
+    layer_tap_state.state = cur_dance(state);
+    switch (layer_tap_state.state) {
+        case TD_SINGLE_HOLD:
+            layer_on(_NAV0);
+            break;
+        case TD_DOUBLE_HOLD:
+            layer_on(_NAV1);
+            break;
+        default:
+            break;
+    }
+}
+
+void td_reset_nav_layer(tap_dance_state_t *state, void *user_data) {
+    switch (layer_tap_state.state) {
+        case TD_SINGLE_HOLD:
+            layer_off(_NAV0);
+            break;
+        case TD_DOUBLE_HOLD:
+            layer_off(_NAV1);
+            break;
+        default:
+            break;
+    }
+    layer_tap_state.state = TD_NONE;
+}
+
+// Tap Dance
+enum tap_dance_codes {
+    TD_NAV = 0,
+};
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_set_nav_layer, td_reset_nav_layer),
+};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -54,22 +118,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LALT,  KC_Q,       KC_W,       KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_LBRC,  KC_RBRC,  KC_BSLS,   KC_PGUP,
         KC_TAB,   KC_A,       KC_S,       KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,    KC_QUOT,            KC_ENT,    KC_PGDN,
         KC_LSFT,  KC_Z,       KC_X,       KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,    KC_RSFT,            KC_UP,     KC_DEL,
-        KC_LCTL,  KC_LGUI,    MO(_FN0),                       KC_SPC,                       MO(_FN0), MO(_FN1),                       KC_LEFT,  KC_DOWN,   KC_RIGHT,
+        KC_LCTL,  KC_LGUI,    TD(TD_NAV),                     KC_SPC,                       MO(_NAV0),MO(_FN0),                       KC_LEFT,  KC_DOWN,   KC_RIGHT,
 
         KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,     KC_NO
     ),  
 
-    [_FN0] = LAYOUT(
+    [_NAV0] = LAYOUT(
         KC_GRV,   KC_F1,      KC_F2,      KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,     KC_F11,   KC_F12,   _______,   _______,
-        WNMV_S,   WNMV_1,     WNMV_2,     WNMV_3,   WNMV_4,   WNMV_5,   WNMV_6,   WNMV_7,   WNMV_8,   WNMV_9,   WNMV_0,     _______,  _______,  _______,   KC_PSCR,
-        WN_S,     WN_1,       WN_2,       WN_3,     WN_4,     WN_5,     WN_6,     WN_7,     WN_8,     WN_9,     WN_0,       _______,            _______,   _______,
+        WNMV_S,   WNMV_1,     WNMV_2,     WNMV_3,   WNMV_4,   WNMV_5,   _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,   KC_PSCR,
+        WN_S,     WN_1,       WN_2,       WN_3,     WN_4,     WN_5,     _______,  _______,  _______,  _______,  _______,    _______,            _______,   _______,
         _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,            KC_VOLU,   _______,
         _______,  _______,    _______,                        _______,                      _______,  _______,                        _______,  KC_VOLD,   _______,
 
         KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,     KC_NO
     ),
+    [_NAV1] = LAYOUT(
+        _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,   _______,
+        _______,  WNMV_6,     WNMV_7,     WNMV_8,   WNMV_9,   WNMV_0,   _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,   _______,
+        _______,  WN_6,       WN_7,       WN_8,     WN_9,     WN_0,     _______,  _______,  _______,  _______,  _______,    _______,            _______,   _______,
+        _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,            _______,   _______,
+        _______,  _______,    _______,                        _______,                      _______,  _______,                        _______,  _______,   _______,
 
-    [_FN1] = LAYOUT(
+        KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,     KC_NO
+    ),
+
+    [_FN0] = LAYOUT(
         RM_RES,   KC_F13,     KC_F14,     KC_F15,   KC_F16,   KC_F17,   KC_F18,   KC_F19,   KC_F20,   KC_F21,   KC_F22,     KC_F23,   KC_F24,   RM_TOGG,   _______,
         _______,  RM_NEXT,    RM_HUEU,    RM_SATU,  RM_VALU,  RM_SPDU,  _______,  _______,  _______,  _______,  _______,    _______,  _______,  _______,   _______,
         KC_CAPS,  RM_PREV,    RM_HUED,    RM_SATD,  RM_VALD,  RM_SPDD,  _______,  _______,  _______,  _______,  _______,    _______,            _______,   _______,
@@ -79,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,     KC_NO
     ),  
 
-    [_FN2] = LAYOUT(
+    [_FN1] = LAYOUT(
         QK_BOOT,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  TO(_BABY), XXXXXXX,
         XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,
         XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,            XXXXXXX,   XXXXXXX,

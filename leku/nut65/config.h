@@ -140,3 +140,4 @@
 
 /* Jake Stuff */
 #define ENABLE_RGB_MATRIX_RIVERFLOW
+#define TAPPING_TERM 150
