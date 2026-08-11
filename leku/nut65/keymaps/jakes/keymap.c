@@ -28,7 +28,9 @@ enum custom_keycodes {
     WN_1, WN_2, WN_3, WN_4, WN_5,
     WN_6, WN_7, WN_8, WN_9, WN_0, WN_S,
     WNMV_1, WNMV_2, WNMV_3, WNMV_4, WNMV_5,
-    WNMV_6, WNMV_7, WNMV_8, WNMV_9, WNMV_0, WNMV_S
+    WNMV_6, WNMV_7, WNMV_8, WNMV_9, WNMV_0, WNMV_S,
+    // Custom keycode for layer navigation
+    L_HOLD
 };
 
 enum layers {
@@ -47,69 +49,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-// Tap Dance Holds
-typedef enum {
-    TD_NONE,
-    TD_SINGLE_HOLD,
-    TD_DOUBLE_HOLD,
-} td_state_t;
+// Combos
+const uint16_t PROGMEM nav_combo[] = {KC_LSFT, L_HOLD, COMBO_END};
 
-typedef struct {
-    bool is_press_action;
-    td_state_t state;
-} td_tap_t;
-
-td_state_t cur_dance(tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return TD_NONE; // not used for single-hold, just a fallback
-        else return TD_SINGLE_HOLD;
-    } else if (state->count == 2) {
-        if (state->pressed) return TD_DOUBLE_HOLD;
-    }
-    return TD_NONE;
-}
-
-static td_tap_t layer_tap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
+combo_t key_combos[] = {
+    COMBO(nav_combo, MO(_NAV1)),
 };
 
-void td_set_nav_layer(tap_dance_state_t *state, void *user_data) {
-    layer_tap_state.state = cur_dance(state);
-    switch (layer_tap_state.state) {
-        case TD_SINGLE_HOLD:
-            layer_on(_NAV0);
-            break;
-        case TD_DOUBLE_HOLD:
-            layer_on(_NAV1);
-            break;
-        default:
-            break;
-    }
-}
-
-void td_reset_nav_layer(tap_dance_state_t *state, void *user_data) {
-    switch (layer_tap_state.state) {
-        case TD_SINGLE_HOLD:
-            layer_off(_NAV0);
-            break;
-        case TD_DOUBLE_HOLD:
-            layer_off(_NAV1);
-            break;
-        default:
-            break;
-    }
-    layer_tap_state.state = TD_NONE;
-}
-
-// Tap Dance
-enum tap_dance_codes {
-    TD_NAV = 0,
-};
-
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_set_nav_layer, td_reset_nav_layer),
-};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -118,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LALT,  KC_Q,       KC_W,       KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,       KC_LBRC,  KC_RBRC,  KC_BSLS,   KC_PGUP,
         KC_TAB,   KC_A,       KC_S,       KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,    KC_QUOT,            KC_ENT,    KC_PGDN,
         KC_LSFT,  KC_Z,       KC_X,       KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,    KC_RSFT,            KC_UP,     KC_DEL,
-        KC_LCTL,  KC_LGUI,    TD(TD_NAV),                     KC_SPC,                       MO(_NAV0),MO(_FN0),                       KC_LEFT,  KC_DOWN,   KC_RIGHT,
+        KC_LCTL,  KC_LGUI,    L_HOLD,                         KC_SPC,                       MO(_NAV0),MO(_FN0),                       KC_LEFT,  KC_DOWN,   KC_RIGHT,
 
         KC_NO,    KC_NO,      KC_NO,      KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,      KC_NO,    KC_NO,    KC_NO,     KC_NO
     ),  
@@ -276,6 +222,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             WNMV(9)
             WNMV(0)
             WNMV(S)
+            case L_HOLD: {
+                layer_on(_NAV0);
+                return false;
+            }
+        }
+    } else {
+        switch (keycode) {
+            case L_HOLD: {
+                layer_off(_NAV0);
+                return false;
+            }
         }
     }
     return true;  // let QMK handle other keys
